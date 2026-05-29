@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+       SEO — À PERSONNALISER
+  ============================================================ -->
+  <title><!-- VARIABLE: NOM_RESTAURANT --> — <!-- VARIABLE: TYPE_CUISINE --> à <!-- VARIABLE: VILLE --></title>
+  <meta name="description" content="<!-- VARIABLE: META_DESCRIPTION (155 caractères max, ex: Découvrez Le Petit Zinc, brasserie parisienne au cœur du 7e. Cuisine traditionnelle française, terrasse, réservation en ligne.) -->" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="<!-- VARIABLE: URL_DU_SITE -->" />
+
+  <!-- Open Graph (partage réseaux sociaux) -->
+  <meta property="og:title" content="<!-- VARIABLE: NOM_RESTAURANT --> — <!-- VARIABLE: TYPE_CUISINE -->" />
+  <meta property="og:description" content="<!-- VARIABLE: META_DESCRIPTION -->" />
+  <meta property="og:type" content="restaurant" />
+  <meta property="og:url" content="<!-- VARIABLE: URL_DU_SITE -->" />
+  <!-- <meta property="og:image" content="VARIABLE: URL_IMAGE_PRINCIPALE" /> -->
+
+  <!-- ============================================================
+       FONTS
+  ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       COULEURS — CHANGER ICI POUR TOUT CHANGER
+    ============================================================ */
+    :root {
+      --couleur-fond:        #0f0d0b;       /* VARIABLE: COULEUR_FOND (fond général) */
+      --couleur-primaire:    #c8a96e;       /* VARIABLE: COULEUR_PRIMAIRE (or/accent) */
+      --couleur-texte:       #f0ebe3;       /* VARIABLE: COULEUR_TEXTE (texte principal) */
+      --couleur-texte-doux:  #9e9689;       /* texte secondaire / gris */
+      --couleur-carte:       #1a1713;       /* fond des cartes / sections */
+      --couleur-bordure:     #2e2a24;       /* bordures subtiles */
+
+      --font-titre:  'Playfair Display', Georgia, serif;
+      --font-corps:  'Jost', sans-serif;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--couleur-fond);
+      color: var(--couleur-texte);
+      font-family: var(--font-corps);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(15, 13, 11, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--couleur-bordure);
+    }
+    .nav-logo {
+      font-family: var(--font-titre);
+      font-size: 1.3rem;
+      color: var(--couleur-primaire);
+      letter-spacing: 0.05em;
+    }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--couleur-texte-doux);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--couleur-primaire); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      /* VARIABLE: IMAGE_HERO — remplacer l'URL ci-dessous par la vraie photo du restaurant */
+      background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.25;
+      z-index: 0;
+    }
+    .hero-contenu { position: relative; z-index: 1; max-width: 700px; }
+    .hero-surtitre {
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--couleur-primaire);
+      margin-bottom: 1.2rem;
+    }
+    .hero-titre {
+      font-family: var(--font-titre);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      font-weight: 400;
+    }
+    .hero-titre em {
+      font-style: italic;
+      color: var(--couleur-primaire);
+    }
+    .hero-sous-titre {
+      font-size: 1rem;
+      color: var(--couleur-texte-doux);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+    .btn-principal {
+      display: inline-block;
+      padding: 0.9rem 2.5rem;
+      border: 1px solid var(--couleur-primaire);
+      color: var(--couleur-primaire);
+      font-family: var(--font-corps);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: background 0.25s, color 0.25s;
+      cursor: pointer;
+    }
+    .btn-principal:hover {
+      background: var(--couleur-primaire);
+      color: var(--couleur-fond);
+    }
+
+    /* ============================================================
+       SECTIONS COMMUNES
+    ============================================================ */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-en-tete { text-align: center; margin-bottom: 4rem; }
+    .section-surtitre {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--couleur-primaire);
+      margin-bottom: 0.8rem;
+    }
+    .section-titre {
+      font-family: var(--font-titre);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+    }
+    .separateur {
+      width: 40px;
+      height: 1px;
+      background: var(--couleur-primaire);
+      margin: 1.5rem auto;
+    }
+
+    /* ============================================================
+       SECTION À PROPOS
+    ============================================================ */
+    #apropos { background: var(--couleur-carte); }
+    .apropos-grille {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .apropos-image {
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      /* VARIABLE: IMAGE_APROPOS */
+      background: url('https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=800&q=80') center/cover;
+      opacity: 0.8;
+    }
+    .apropos-texte p {
+      color: var(--couleur-texte-doux);
+      margin-bottom: 1.2rem;
+      line-height: 1.9;
+    }
+    /* VARIABLE: TEXTE_APROPOS — modifier le texte dans la section HTML */
+
+    /* ============================================================
+       MENU
+    ============================================================ */
+    #menu { border-top: 1px solid var(--couleur-bordure); }
+    .menu-categories {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .menu-btn {
+      padding: 0.5rem 1.5rem;
+      border: 1px solid var(--couleur-bordure);
+      background: transparent;
+      color: var(--couleur-texte-doux);
+      font-family: var(--font-corps);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .menu-btn.actif, .menu-btn:hover {
+      border-color: var(--couleur-primaire);
+      color: var(--couleur-primaire);
+    }
+    .menu-grille {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 0;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--couleur-bordure);
+      gap: 1rem;
+    }
+    .menu-item-info { flex: 1; }
+    .menu-item-nom {
+      font-family: var(--font-titre);
+      font-size: 1.05rem;
+      margin-bottom: 0.2rem;
+    }
+    .menu-item-desc {
+      font-size: 0.82rem;
+      color: var(--couleur-texte-doux);
+    }
+    .menu-item-prix {
+      color: var(--couleur-primaire);
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+    .menu-panneau { display: none; }
+    .menu-panneau.actif { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0 4rem; }
+
+    /* ============================================================
+       HORAIRES & CONTACT
+    ============================================================ */
+    #contact { background: var(--couleur-carte); }
+    .contact-grille {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+    .horaires-liste { list-style: none; }
+    .horaires-liste li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--couleur-bordure);
+      font-size: 0.9rem;
+    }
+    .horaires-liste li:last-child { border-bottom: none; }
+    .horaires-liste .jour { color: var(--couleur-texte-doux); }
+    .horaires-liste .ferme { color: #5a534a; font-style: italic; }
+    .contact-infos { display: flex; flex-direction: column; gap: 1.8rem; }
+    .contact-ligne { display: flex; gap: 1rem; align-items: flex-start; }
+    .contact-icone {
+      color: var(--couleur-primaire);
+      font-size: 1rem;
+      margin-top: 0.1rem;
+      flex-shrink: 0;
+      width: 20px;
+    }
+    .contact-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--couleur-texte-doux);
+      margin-bottom: 0.2rem;
+    }
+    .contact-valeur { font-size: 0.95rem; }
+
+    /* ============================================================
+       CARTE GOOGLE MAPS
+    ============================================================ -->
+    /* VARIABLE: LIEN_GOOGLE_MAPS — remplacer src dans l'iframe ci-dessous */
+    #carte { padding: 0; height: 380px; }
+    #carte iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      filter: grayscale(1) invert(0.9) contrast(0.85);
+      opacity: 0.75;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      text-align: center;
+      padding: 2.5rem;
+      font-size: 0.78rem;
+      color: var(--couleur-texte-doux);
+      border-top: 1px solid var(--couleur-bordure);
+    }
+    footer span { color: var(--couleur-primaire); }
+
+    /* ============================================================
+       RESPONSIVE MOBILE
+    ============================================================ */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .nav-links a { font-size: 0.72rem; }
+      .apropos-grille,
+      .contact-grille { grid-template-columns: 1fr; gap: 2.5rem; }
+      .apropos-image { aspect-ratio: 16/9; }
+      section { padding: 4rem 1.5rem; }
+      .menu-panneau.actif { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+    }
+
+    /* ============================================================
+       ANIMATIONS D'ENTRÉE
+    ============================================================ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav>
+    <div class="nav-logo">
+      <!-- VARIABLE: NOM_RESTAURANT -->
+      Le Petit Zinc
+    </div>
+    <div class="nav-links">
+      <a href="#apropos">À propos</a>
+      <a href="#menu">Menu</a>
+      <a href="#contact">Contact</a>
+      <!-- VARIABLE: LIEN_RESERVATION (optionnel) -->
+      <a href="tel:<!-- VARIABLE: TELEPHONE -->" style="color: var(--couleur-primaire);">Réserver</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="hero">
+    <div class="hero-contenu">
+      <p class="hero-surtitre">
+        <!-- VARIABLE: TYPE_CUISINE -->
+        Brasserie Française
+      </p>
+      <h1 class="hero-titre">
+        <!-- VARIABLE: NOM_RESTAURANT (peut être sur 2 lignes avec <em> pour l'italique) -->
+        Le Petit <em>Zinc</em>
+      </h1>
+      <p class="hero-sous-titre">
+        <!-- VARIABLE: ACCROCHE (1 phrase, max 15 mots) -->
+        Une cuisine du marché sincère, dans l'esprit des grandes brasseries parisiennes.
+      </p>
+      <a href="#menu" class="btn-principal">Voir la carte</a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       À PROPOS
+  ============================================================ -->
+  <section id="apropos">
+    <div class="container">
+      <div class="apropos-grille">
+        <div class="apropos-image fade-in"></div>
+        <!-- VARIABLE: IMAGE_APROPOS — changer l'URL background dans le CSS ci-dessus -->
+        <div class="fade-in">
+          <p class="section-surtitre">Notre histoire</p>
+          <h2 class="section-titre">
+            <!-- VARIABLE: TITRE_APROPOS -->
+            Une adresse de quartier depuis 1987
+          </h2>
+          <div class="separateur" style="margin: 1.5rem 0;"></div>
+          <!-- VARIABLE: TEXTE_APROPOS — remplacer les 2 paragraphes ci-dessous -->
+          <p>
+            Niché au cœur du 7e arrondissement, Le Petit Zinc a ouvert ses portes il y a plus de trente ans. Notre cuisine s'inspire des saisons et des producteurs locaux, dans le respect d'une tradition brasserie dont nous sommes fiers.
+          </p>
+          <p>
+            Chaque jour, notre chef élabore une carte courte, sincère, qui change au fil des arrivages. Ici, on mange bien, on boit bien, et on prend le temps.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MENU
+  ============================================================ -->
+  <section id="menu">
+    <div class="container">
+      <div class="section-en-tete fade-in">
+        <p class="section-surtitre">Ce que nous proposons</p>
+        <h2 class="section-titre">La Carte</h2>
+        <div class="separateur"></div>
+      </div>
+
+      <!-- Boutons catégories -->
+      <div class="menu-categories">
+        <button class="menu-btn actif" onclick="afficherMenu('entrees', this)">Entrées</button>
+        <button class="menu-btn" onclick="afficherMenu('plats', this)">Plats</button>
+        <button class="menu-btn" onclick="afficherMenu('desserts', this)">Desserts</button>
+        <!-- VARIABLE: AJOUTER/SUPPRIMER des catégories si besoin -->
+      </div>
+
+      <!-- ENTRÉES — VARIABLE: MENU_ENTREES -->
+      <div id="entrees" class="menu-panneau actif">
+        <!-- Copier/coller un bloc .menu-item pour ajouter un plat -->
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-nom">Œuf mayo, câpres & anchois</div>
+            <div class="menu-item-desc">Œuf fermier, mayonnaise maison, anchois de Cantabrie</div>
+          </div>
+          <div class="menu-item-prix">9 €</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-nom">Terrine de campagne</div>
+            <div class="menu-item-desc">Façon grand-mère, cornichons et pain de campagne grillé</div>
+          </div>
+          <div class="menu-item-prix">11 €</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-nom">Soupe à l'oignon</div>
+            <div class="menu-item-desc">Gratinée au comté vieux, croûtons maison</div>
+          </div>
+          <div class="menu-item-prix">13 €</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-nom">Salade frisée aux lardons</div>
+            <div class="menu-item-desc">Œuf poché, lardons fumés, vinaigrette moutarde</div>
+          </div>
+          <div class="menu-item-prix">14 €</div>
+        </div>
+      </div>
+
+      <!-- PLATS — VARIABLE: MENU_PLATS -->
+      <div id="plats" class="menu-panneau">
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-nom">Entrecôte sauce béarnaise</div>
+            <div class="menu-item-desc">300g de bœuf race Limousine, frites maison</div>
+          </div>
+          <div class="menu-item-prix">28 €</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-nom">Sole meunière</div>
+            <div class="menu-item-desc">Beurre noisette, câpres, citron, pommes vapeur</div>
+          </div>
+          <div class="menu-item-prix">32 €</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-nom">Poulet rôti du dimanche</div>
+            <div class="menu-item-desc">Volaille fermière, jus court, légumes racines</div>
+          </div>
+          <div class="menu-item-prix">22 €</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-nom">Gratin dauphinois & champignons</div>
+            <div class="menu-item-desc">Option végétarienne, crème entière, ail confit</div>
+          </div>
+          <div class="menu-item-prix">18 €</div>
+        </div>
+      </div>
+
+      <!-- DESSERTS — VARIABLE: MENU_DESSERTS -->
+      <div id="desserts" class="menu-panneau">
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-nom">Profiteroles maison</div>
+            <div class="menu-item-desc">Choux, glace vanille, sauce chocolat chaude</div>
+          </div>
+          <div class="menu-item-prix">10 €</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-nom">Île flottante</div>
+            <div class="menu-item-desc">Crème anglaise, caramel, pralin</div>
+          </div>
+          <div class="menu-item-prix">9 €</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-nom">Tarte Tatin</div>
+            <div class="menu-item-desc">Pommes caramélisées, crème fraîche épaisse</div>
+          </div>
+          <div class="menu-item-prix">11 €</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info">
+            <div class="menu-item-nom">Assiette de fromages</div>
+            <div class="menu-item-desc">Sélection affinée, confiture maison, noix</div>
+          </div>
+          <div class="menu-item-prix">13 €</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HORAIRES & CONTACT
+  ============================================================ -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-en-tete fade-in">
+        <p class="section-surtitre">Nous trouver</p>
+        <h2 class="section-titre">Horaires & Contact</h2>
+        <div class="separateur"></div>
+      </div>
+      <div class="contact-grille fade-in">
+
+        <!-- HORAIRES — VARIABLE: HORAIRES -->
+        <div>
+          <p class="section-surtitre" style="text-align:left; margin-bottom:1.2rem;">Horaires d'ouverture</p>
+          <ul class="horaires-liste">
+            <!-- Format : Jour — Heure ou Fermé -->
+            <li><span class="jour">Lundi</span><span class="ferme">Fermé</span></li>
+            <li><span class="jour">Mardi — Vendredi</span><span>12h – 14h30 &nbsp;|&nbsp; 19h – 22h30</span></li>
+            <li><span class="jour">Samedi</span><span>12h – 15h &nbsp;|&nbsp; 19h – 23h</span></li>
+            <li><span class="jour">Dimanche</span><span>12h – 15h</span></li>
+          </ul>
+          <p style="font-size:0.8rem; color:var(--couleur-texte-doux); margin-top:1.2rem;">
+            <!-- VARIABLE: NOTE_HORAIRES (ex: Cuisine ouverte en continu le week-end) -->
+            Réservation conseillée le week-end.
+          </p>
+        </div>
+
+        <!-- INFOS CONTACT — VARIABLE: ADRESSE, TELEPHONE, EMAIL -->
+        <div class="contact-infos">
+          <div class="contact-ligne">
+            <div class="contact-icone">◈</div>
+            <div>
+              <div class="contact-label">Adresse</div>
+              <div class="contact-valeur">
+                <!-- VARIABLE: ADRESSE -->
+                42 rue de Bourgogne<br />75007 Paris
+              </div>
+            </div>
+          </div>
+          <div class="contact-ligne">
+            <div class="contact-icone">◈</div>
+            <div>
+              <div class="contact-label">Téléphone</div>
+              <div class="contact-valeur">
+                <!-- VARIABLE: TELEPHONE -->
+                <a href="tel:0143456789" style="color:var(--couleur-primaire)">01 43 45 67 89</a>
+              </div>
+            </div>
+          </div>
+          <div class="contact-ligne">
+            <div class="contact-icone">◈</div>
+            <div>
+              <div class="contact-label">Email</div>
+              <div class="contact-valeur">
+                <!-- VARIABLE: EMAIL -->
+                <a href="mailto:contact@lepetitzinc.fr" style="color:var(--couleur-primaire)">contact@lepetitzinc.fr</a>
+              </div>
+            </div>
+          </div>
+          <!-- VARIABLE: LIEN_RESERVATION (optionnel — supprimer si pas de resa en ligne) -->
+          <a href="#" class="btn-principal" style="align-self:flex-start; margin-top:0.5rem;">
+            Réserver une table
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GOOGLE MAPS
+       VARIABLE: Remplacer l'URL du src par le lien d'intégration
+       Google Maps du vrai restaurant (Maps > Partager > Intégrer)
+  ============================================================ -->
+  <div id="carte">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9914406073745!2d2.3167261!3d48.8553986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDUxJzE5LjQiTiAywrAxOScwMC4yIkU!5e0!3m2!1sfr!2sfr!4v1234567890"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Localisation du restaurant">
+    </iframe>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <!-- VARIABLE: NOM_RESTAURANT, ANNEE (mettre l'année en cours) -->
+    © 2025 <span>Le Petit Zinc</span> — Tous droits réservés
+    &nbsp;·&nbsp;
+    <!-- VARIABLE: MENTION_LEGALE (optionnel) -->
+    <a href="#" style="color:var(--couleur-texte-doux);">Mentions légales</a>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT — Onglets menu + animations
+  ============================================================ -->
+  <script>
+    // --- Onglets menu ---
+    function afficherMenu(id, btn) {
+      document.querySelectorAll('.menu-panneau').forEach(p => p.classList.remove('actif'));
+      document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('actif'));
+      document.getElementById(id).classList.add('actif');
+      btn.classList.add('actif');
+    }
+
+    // --- Animations d'entrée au scroll ---
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
